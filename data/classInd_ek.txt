@@ -1,0 +1,8 @@
+0 closing
+1 inserting
+2 mixing
+3 moving
+4 opening
+5 putting
+6 taking
+7 washing

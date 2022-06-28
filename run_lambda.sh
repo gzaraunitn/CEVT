@@ -1,4 +1,16 @@
 #!/bin/bash
+#SBATCH -p lambda
+#SBATCH -A staff
+#SBATCH -t 23:59:00
+#SBATCH --gres gpu:4
+#SBATCH --mem=144000
+#SBATCH -o /data/gzara/exp.out
+
+# Make conda available:
+export PATH="/nfs/data_chaos/gzara/miniconda3/bin:$PATH"
+eval "$(conda shell.bash hook)"
+# Activate a conda environment:
+conda activate cevt
 
 #====== parameters ======#
 training=true # true | false
@@ -65,10 +77,11 @@ lr_steps_2=20
 epochs=60
 gd=20
 
-CUDA_VISIBLE_DEVICES=4,5,6,7 python3 main.py \
+python3 main.py \
 	--epic_kitchens \
 	--run_name ek42_cevt \
 	data/classInd_ek.txt \
+	--slurm \
 	$modality \
 	txt/epic_kitchens3/P04_train_source.txt \
 	txt/epic_kitchens3/P02_train_target.txt \

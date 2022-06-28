@@ -83,6 +83,7 @@ def main(trial):
     parser.add_argument("--epic_kitchens", action="store_true")
     parser.add_argument("--project", type=str, default="wacv2023")
     parser.add_argument("--run_name", type=str, required=True)
+    parser.add_argument("--slurm", action="store_true")
 
     args = parser.parse_args()
 
@@ -397,6 +398,7 @@ def main(trial):
         random_shift=False,
         test_mode=True,
         epic_kitchens=args.epic_kitchens,
+        slurm=args.slurm
     )
     val_loader = torch.utils.data.DataLoader(
         val_set,
@@ -420,6 +422,7 @@ def main(trial):
             random_shift=False,
             test_mode=True,
             epic_kitchens=args.epic_kitchens,
+            slurm=args.slurm
         )
 
         source_sampler = torch.utils.data.sampler.RandomSampler(source_set)
@@ -445,6 +448,7 @@ def main(trial):
             random_shift=False,
             test_mode=True,
             epic_kitchens=args.epic_kitchens,
+            slurm=args.slurm
         )
 
         target_sampler = torch.utils.data.sampler.RandomSampler(target_set)

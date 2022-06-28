@@ -57,7 +57,8 @@ class TSNDataSet(data.Dataset):
         random_shift=True,
         test_mode=False,
         epic_kitchens=False,
-        frame_size=224
+        frame_size=224,
+        slurm=False
     ):
 
         self.epic_kitchens = epic_kitchens
@@ -72,6 +73,7 @@ class TSNDataSet(data.Dataset):
                 ),
             ]
         )
+        self.slurm = slurm
 
         self.root_path = root_path
         self.list_file = list_file
@@ -100,6 +102,8 @@ class TSNDataSet(data.Dataset):
                 for line in filelist:
                     split_line = line.split()
                     path = split_line[0]
+                    if self.slurm:
+                        path = path.replace("/data/gzara/", "/nfs/data_todi/datasets/")
                     start_frame = int(split_line[1])
                     stop_frame = int(split_line[2])
                     label = int(split_line[3])
